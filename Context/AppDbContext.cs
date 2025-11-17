@@ -1,6 +1,8 @@
-﻿namespace ToDoApi;
+﻿using Microsoft.EntityFrameworkCore;
 
-public class AppDbContext(DbContext)
+namespace ToDoApi;
+
+public class AppDbContext(DbContextOptions<AppDbContext> options) : BdContext(options)
 {
-
+    DbSet<>
 }
