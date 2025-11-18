@@ -4,5 +4,5 @@ namespace ToDoApi;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : BdContext(options)
 {
-    DbSet<>
+    DbSet<Task> task;
 }
