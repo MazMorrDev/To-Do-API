@@ -8,7 +8,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    // Customize the endpoint route if needed
+    // Customize the endpoint route
     app.MapOpenApi("/openapi/{documentName}.json");
 }
 
