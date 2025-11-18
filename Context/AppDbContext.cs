@@ -2,7 +2,9 @@
 
 namespace ToDoApi;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : BdContext(options)
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    DbSet<Task> task;
+    public DbSet<Task> Tasks { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<UserTask> UserTasks { get; set; }
 }
