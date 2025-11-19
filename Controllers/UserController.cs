@@ -5,14 +5,9 @@ namespace ToDoApi;
 
 [Route("api/[controller]")]
 [ApiController]
-public class UserController : ControllerBase
+public class UserController(AppDbContext context) : ControllerBase
 {
-    private readonly AppDbContext _context;
-
-    public UserController(AppDbContext context)
-    {
-        _context = context;
-    }
+    private readonly AppDbContext _context = context;
 
     // GET: api/Users
     [HttpGet]
@@ -35,7 +30,7 @@ public class UserController : ControllerBase
         return product;
     }
 
-    // PUT: api/Products/5
+    // PUT: api/Users/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
     public async Task<IActionResult> PutProduct(int id, Users users)

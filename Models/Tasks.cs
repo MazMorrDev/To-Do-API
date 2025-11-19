@@ -1,6 +1,6 @@
 ﻿namespace ToDoApi;
 
-public class Task
+public class Tasks
 {
     public int Id { get; set; }
     public string? Description { get; set; }

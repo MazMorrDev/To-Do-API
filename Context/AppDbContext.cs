@@ -11,8 +11,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     {
         base.OnModelCreating(modelBuilder);
 
-        // Configurar la entidad Task (evitar conflicto con System.Threading.Tasks.Task)
-        modelBuilder.Entity<Task>(entity =>
+        // Configurar la entidad Tasks (evitar conflicto con System.Threading.Tasks.Task)
+        modelBuilder.Entity<Tasks>(entity =>
         {
             entity.HasKey(t => t.Id);
             entity.Property(t => t.Description).HasMaxLength(500);
@@ -21,7 +21,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             entity.Property(t => t.User);
         });
 
-        // Configurar la entidad User
+        // Configurar la entidad Users
         modelBuilder.Entity<Users>(entity =>
         {
             entity.HasKey(u => u.Id);
