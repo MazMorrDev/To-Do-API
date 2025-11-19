@@ -9,5 +9,5 @@ public class Task
 
     public int UserId { get; set; }
     // Propiedad de navegación
-    public virtual User? User { get; set; }
+    public virtual Users? User { get; set; }
 }

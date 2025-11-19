@@ -5,7 +5,7 @@ namespace ToDoApi;
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<Task> Tasks { get; set; }
-    public DbSet<User> Users { get; set; }
+    public DbSet<Users> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -22,7 +22,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         });
 
         // Configurar la entidad User
-        modelBuilder.Entity<User>(entity =>
+        modelBuilder.Entity<Users>(entity =>
         {
             entity.HasKey(u => u.Id);
             entity.Property(u => u.Name).HasMaxLength(100);

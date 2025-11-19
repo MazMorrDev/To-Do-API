@@ -1,7 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using ToDoApi;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddOpenApi("v1"); // Customize the document name
+var connectionString = builder.Configuration.GetConnectionString("Connection");
+builder.Services.AddDbContext<AppDbContext>(optionsAction: options => options.UseNpgsql(connectionString));
 
 var app = builder.Build();
 
