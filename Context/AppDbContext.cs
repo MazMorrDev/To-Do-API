@@ -6,7 +6,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 {
     public DbSet<Task> Tasks { get; set; }
     public DbSet<User> Users { get; set; }
-    public DbSet<UserTask> UserTasks { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -19,6 +18,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             entity.Property(t => t.Description).HasMaxLength(500);
             entity.Property(t => t.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(t => t.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(t => t.User);
         });
 
         // Configurar la entidad User
@@ -29,25 +29,25 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             entity.Property(u => u.HashPassword).HasMaxLength(255);
         });
 
-        // Configurar la entidad UserTask (tabla de unión/relación)
-        modelBuilder.Entity<UserTask>(entity =>
-        {
-            entity.HasKey(ut => ut.Id);
+        // // Configurar la entidad UserTask (tabla de unión/relación)
+        // modelBuilder.Entity<UserTask>(entity =>
+        // {
+        //     entity.HasKey(ut => ut.Id);
 
-            // Relación con User
-            entity.HasOne(ut => ut.User)
-                  .WithMany() // Si User tiene colección de UserTasks, usar: .WithMany(u => u.UserTasks)
-                  .HasForeignKey(ut => ut.UserId)
-                  .OnDelete(DeleteBehavior.Cascade); // Opcional: eliminar UserTasks cuando se elimine User
+        //     // Relación con User
+        //     entity.HasOne(ut => ut.User)
+        //           .WithMany() // Si User tiene colección de UserTasks, usar: .WithMany(u => u.UserTasks)
+        //           .HasForeignKey(ut => ut.UserId)
+        //           .OnDelete(DeleteBehavior.Cascade); // Opcional: eliminar UserTasks cuando se elimine User
 
-            // Relación con Task
-            entity.HasOne(ut => ut.Task)
-                  .WithMany() // Si Task tiene colección de UserTasks, usar: .WithMany(t => t.UserTasks)
-                  .HasForeignKey(ut => ut.TaskId)
-                  .OnDelete(DeleteBehavior.Cascade); // Opcional: eliminar UserTasks cuando se elimine Task
+        //     // Relación con Task
+        //     entity.HasOne(ut => ut.Task)
+        //           .WithMany() // Si Task tiene colección de UserTasks, usar: .WithMany(t => t.UserTasks)
+        //           .HasForeignKey(ut => ut.TaskId)
+        //           .OnDelete(DeleteBehavior.Cascade); // Opcional: eliminar UserTasks cuando se elimine Task
 
-            // Opcional: Índice compuesto para evitar duplicados
-            entity.HasIndex(ut => new { ut.UserId, ut.TaskId }).IsUnique();
-        });
+        //     // Opcional: Índice compuesto para evitar duplicados
+        //     entity.HasIndex(ut => new { ut.UserId, ut.TaskId }).IsUnique();
+        // });
     }
 }
